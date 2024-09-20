@@ -1,0 +1,271 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Eligibility Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .navbar button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .navbar button:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input,
+        button {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .slider-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body cz-shortcut-listen="true">
+    <%- include('parts/header') %>
+
+    <div class="navbar">
+        <button onclick="window.location.href='Loan-Amount-Calculator'"
+            fdprocessedid="0lb73h">Loan Amount Calculator</button>
+        <button onclick="window.location.href='EMI-CALCULATOR'" fdprocessedid="1zqpt">EMI
+            Calculator
+        </button>
+    </div>
+
+    <div class="container">
+        <h1 class="emi-calculator-title">Loan Eligibility Calculator</h1>
+
+<style>
+    .emi-calculator-title {
+        text-align: center; /* Center the heading */
+        color: #103C63; /* Heading color */
+        font-size: 3rem; /* Default font size */
+        margin: 20px 0; /* Margin above and below */
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    }
+
+    @media (max-width: 768px) {
+        .emi-calculator-title {
+            font-size: 2.5rem; /* Slightly smaller font for medium screens */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .emi-calculator-title {
+            font-size: 2rem; /* Further smaller font for small screens */
+        }
+    }
+</style>
+
+        <form id="calculator-form">
+            <label for="take-home-salary">Take Home Salary:</label>
+            <input type="number" id="take-home-salary" placeholder="Enter your salary"
+                oninput="updateFOIRandEmiPayingCapacity()" fdprocessedid="csy61s">
+
+            <label for="foir">LESS FOIR (50%):</label>
+            <input type="number" id="foir" placeholder="Calculated automatically" readonly="" fdprocessedid="5rfxvg">
+
+            <label for="home-loan-emi">Existing Home Loan EMI:</label>
+            <input type="number" id="home-loan-emi" placeholder="Enter Home Loan EMI"
+                oninput="updateEmiPayingCapacity()" fdprocessedid="ldyn2x">
+
+            <label for="personal-loan-emi">Existing Personal Loan EMI:</label>
+            <input type="number" id="personal-loan-emi" placeholder="Enter Personal Loan EMI"
+                oninput="updateEmiPayingCapacity()" fdprocessedid="hiwsh">
+
+            <label for="credit-card-dues-1">Existing Credit Card Dues 1:</label>
+            <input type="number" id="credit-card-dues-1" placeholder="Enter Credit Card Dues 1"
+                oninput="updateCreditCardMinPayment(); updateEmiPayingCapacity();" fdprocessedid="e0bnjt">
+
+            <label for="credit-card-dues-2">Existing Credit Card Dues 2:</label>
+            <input type="number" id="credit-card-dues-2" placeholder="Enter Credit Card Dues 2"
+                oninput="updateCreditCardMinPayment(); updateEmiPayingCapacity();" fdprocessedid="wakmn">
+
+            <label for="credit-card-dues-3">Existing Credit Card Dues 3:</label>
+            <input type="number" id="credit-card-dues-3" placeholder="Enter Credit Card Dues 3"
+                oninput="updateCreditCardMinPayment(); updateEmiPayingCapacity();" fdprocessedid="hsuf9">
+
+            <label for="credit-card-min-payment">Credit Card Minimum Payment:</label>
+            <input type="number" id="credit-card-min-payment" placeholder="Calculated automatically" readonly=""
+                fdprocessedid="n9i2i">
+
+            <label for="other-emi">Other EMI:</label>
+            <input type="number" id="other-emi" placeholder="Enter Other EMI" oninput="updateEmiPayingCapacity()"
+                fdprocessedid="80b17t">
+
+            <label for="emi-paying-capacity">EMI Paying Capacity:</label>
+            <input type="number" id="emi-paying-capacity" placeholder="Calculated automatically" readonly=""
+                fdprocessedid="w9dw1r">
+
+            <div class="slider-container">
+                <label for="tenure">Tenure (Years): <span id="tenure-value">7</span></label>
+                <input type="range" id="tenure" min="1" max="30" step="1" value="7"
+                    oninput="updateTenureValue(); updateLoanAmount()">
+            </div>
+
+            <div class="slider-container">
+                <label for="payment-mode">Payment Mode (Months): <span id="payment-mode-value">12</span></label>
+                <input type="range" id="payment-mode" min="1" max="12" step="1" value="12"
+                    oninput="updatePaymentModeValue(); updateLoanAmount()">
+            </div>
+
+            <div class="slider-container">
+                <label for="interest-rate">Rate of Interest (%): <span id="interest-rate-value">10</span></label>
+                <input type="range" id="interest-rate" min="0.1" max="20" step="0.01" value="10"
+                    oninput="updateInterestRateValue(); updateLoanAmount()">
+            </div>
+
+            <button type="button" onclick="calculateLoan()" fdprocessedid="vxwty2">Calculate Loan Amount</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function updateFOIRandEmiPayingCapacity() {
+            const takeHomeSalary = parseFloat(document.getElementById('take-home-salary').value) || 0;
+            const foirPercentage = 50;
+            const foirAmount = (foirPercentage / 100) * takeHomeSalary;
+            document.getElementById('foir').value = foirAmount.toFixed(2);
+            updateEmiPayingCapacity();
+        }
+
+        function updateCreditCardMinPayment() {
+            const creditCardDues1 = parseFloat(document.getElementById('credit-card-dues-1').value) || 0;
+            const creditCardDues2 = parseFloat(document.getElementById('credit-card-dues-2').value) || 0;
+            const creditCardDues3 = parseFloat(document.getElementById('credit-card-dues-3').value) || 0;
+            const totalCreditCardDues = (creditCardDues1 + creditCardDues2 + creditCardDues3) / 3;
+            const creditCardMinPayment = totalCreditCardDues * 0.05;
+            document.getElementById('credit-card-min-payment').value = creditCardMinPayment.toFixed(2);
+            updateEmiPayingCapacity();
+        }
+
+        function updateEmiPayingCapacity() {
+            const takeHomeSalary = parseFloat(document.getElementById('take-home-salary').value) || 0;
+            const homeLoanEmi = parseFloat(document.getElementById('home-loan-emi').value) || 0;
+            const personalLoanEmi = parseFloat(document.getElementById('personal-loan-emi').value) || 0;
+            const creditCardMinPayment = parseFloat(document.getElementById('credit-card-min-payment').value) || 0;
+            const otherEmi = parseFloat(document.getElementById('other-emi').value) || 0;
+            const foirPercentage = 50;
+            const foirAmount = (foirPercentage / 100) * takeHomeSalary;
+            const totalObligations = homeLoanEmi + personalLoanEmi + creditCardMinPayment + otherEmi;
+            const emiPayingCapacity = foirAmount - totalObligations;
+            document.getElementById('emi-paying-capacity').value = emiPayingCapacity.toFixed(2);
+        }
+
+        function updateTenureValue() {
+            const tenure = document.getElementById('tenure').value;
+            document.getElementById('tenure-value').textContent = tenure;
+        }
+
+        function updatePaymentModeValue() {
+            const paymentMode = document.getElementById('payment-mode').value;
+            document.getElementById('payment-mode-value').textContent = paymentMode;
+        }
+
+        function updateInterestRateValue() {
+            const interestRate = document.getElementById('interest-rate').value;
+            document.getElementById('interest-rate-value').textContent = interestRate;
+        }
+
+        function calculateLoan() {
+            const emiPayingCapacity = parseFloat(document.getElementById('emi-paying-capacity').value) || 0;
+            const tenureYears = parseFloat(document.getElementById('tenure').value) || 0;
+            const paymentMode = parseFloat(document.getElementById('payment-mode').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+            const numberOfPayments = tenureYears * paymentMode;
+            const monthlyInterestRate = (interestRate / 100) / paymentMode;
+            const loanAmount = emiPayingCapacity * ((1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments)) / monthlyInterestRate);
+            document.getElementById('result').textContent = `Eligible Loan Amount: ₹${loanAmount.toFixed(2)}`;
+        }
+
+        // Initialize calculations on page load
+        updateFOIRandEmiPayingCapacity();
+        updateCreditCardMinPayment();
+    </script>
+
+
+    <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
+    <%- include('parts/footer') %>
+
+</body>
+
+</html>

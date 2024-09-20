@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        footer {
+            background-color: #1a2a38;
+            color: #ffffff;
+            padding: 40px 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        .footer-logo img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .footer-office,
+        .footer-links,
+        .footer-follow {
+            max-width: 250px;
+            margin: 10px;
+            flex: 1;
+        }
+
+        .footer-office h4,
+        .footer-links h4,
+        .footer-follow h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .footer-office p,
+        .footer-links ul,
+        .footer-follow ul {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #d3d3d3;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 5px;
+        }
+
+        .footer-links ul li a {
+            color: #d3d3d3;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-follow ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-follow ul li {
+            display: inline;
+        }
+
+        .footer-follow ul li a {
+            color: #d3d3d3;
+            font-size: 18px;
+        }
+
+        .footer-follow ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+            color: #d3d3d3;
+            border-top: 1px solid #d3d3d3;
+            margin-top: 20px;
+            background-color: #1a2a38;
+            margin-bottom: 0;
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-office,
+            .footer-links,
+            .footer-follow {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjnK5_8epP-uhfyryZPtBqhw0cD_Afn5Fk9N_E_OOfMnZnM_n-5vx0aRJ9ScirhPBL3YbRvU7O4M-8wH057sEn2VCEpSrLtoJET3WNf4J4KAYB3JodUuOwRubZzhxIwKjwAAOEXGFAVVEf1ZlLQCSZJge-rPB2gG4GTO5sfnaYfn2GDvYTYA6H7ib4tBmg/s320/blpl.jpg"
+                    alt="Blpl" style="height: 50px; width: 100px;">
+            </div>
+            <div class="footer-office">
+                <h4>Registered Office</h4>
+                <p>E-3, Top Floor, Tower A, Bhavishya Apartment, Nai Basti Road, Deoli, New Delhi -110062</p>
+                <p><i class="fas fa-phone"></i> +91 88510 41909</p>
+            </div>
+            <div class="footer-office">
+                <h4>Office</h4>
+                <p>BLPL Financial Services<br>Ghosi Road<br>Nagra<br>Ballia<br>Uttar Pradesh 221711</p>
+                <p><i class="fas fa-envelope"></i> care@Blplfinserv.in</p>
+                <p><i class="fas fa-envelope"></i> info@Blplfinserv.in</p>
+            </div>
+            <div class="footer-office">
+                <h4>Office</h4>
+                <p>BLPL Financial Services<br>Sri Ram Plaza<br>Bank mor<br>Dhanbad, Jharkhand 826001</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/login">Partner</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/privacypolicy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Use</a></li>
+                    <li><a href="/policy">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-follow">
+                <h4>Follow</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © 2024 Private Limited All Rights Reserved</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit User</h1>
+        <form action="/api/users/edit/<%= user.userId %>" method="post">
+            <div>
+                <label for="userId">User ID:</label>
+                <input type="text" name="userId" value="<%= user.userId %>" readonly>
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" value="<%= user.name %>" required>
+            </div>
+            <div>
+                <label for="department">Department:</label>
+                <input type="text" name="department" value="<%= user.department %>" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" value="<%= user.password %>" required>
+            </div>
+            <button type="submit">Update User</button>
+        </form>
+        <a href="/api/users/list">View Users</a>
+    </div>
+
+    <script>
+        // Toggle HOD selection based on the selected role
+        document.getElementById('role').addEventListener('change', function() {
+            const hodContainer = document.getElementById('hod-container');
+            if (this.value === 'employee') {
+                hodContainer.style.display = 'block';
+            } else {
+                hodContainer.style.display = 'none';
+            }
+        });
+
+        // Trigger change event on page load to set the initial state
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role');
+            roleSelect.dispatchEvent(new Event('change'));
+        });
+    </script>
+</body>
+</html>

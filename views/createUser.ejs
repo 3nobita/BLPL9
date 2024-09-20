@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create New User</h1>
+        <form action="/api/users/add" method="post">
+            <div>
+                <label for="userId">User ID:</label>
+                <input type="text" name="userId" required>
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div>
+                <label for="role">Role:</label>
+                <select name="role" required>
+                    <option value="hod">HOD</option>
+                </select>
+            </div>
+            <div>
+                <label for="department">Department:</label>
+                <input type="text" name="department" required>
+            </div>
+            <div id="hod-container" style="display:none;">
+                <label for="hodId">Assign HOD:</label>
+                <select id="hodId" name="hodId">
+                    <option value="" disabled selected>Select an HOD</option>
+                    <% hods.forEach(hod=> { %>
+                        <option value="<%= hod._id %>">
+                            <%= hod.name %> (ID: <%= hod.userId %>)
+                        </option>
+                        <% }); %>
+                </select>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit">Add User</button>
+            <a href="/api/users/list">View Users</a>
+        </form>
+
+        <script>
+            document.querySelector('[name="role"]').addEventListener('change', function () {
+                const hodContainer = document.getElementById('hod-container');
+                if (this.value === 'employee') {
+                    hodContainer.style.display = 'block';
+                } else {
+                    hodContainer.style.display = 'none';
+                }
+            });
+        </script>
+    </div>
+</body>
+
+</html>

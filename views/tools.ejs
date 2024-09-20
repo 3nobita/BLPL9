@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculators</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            margin: 10px;
+            
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+        .sidebar{
+            width : 200px;
+            height: 100vh;
+            background-color: #1a2a38;
+            position: absolute;
+            left : 0;
+            padding : 10px;
+            padding-top: 70px;
+           
+        }
+        .sidebar li{
+            padding-top: 70px;
+            color: white;
+            margin-bottom: 50px;
+        }
+    </style>
+   <script>
+    function show1() {
+        const calc1 = document.getElementById("calc1");
+        const calc2 = document.getElementById("calc2");
+        const calc3 = document.getElementById("calc3");
+
+        calc1.style.display = "block"; // Show the Loan Amount Calculator
+        calc2.style.display = "none";  // Hide the EMI Calculator
+        calc3.style.display = "none";  // Hide the Loan Eligibility Calculator
+    }
+
+    function show2() {
+        const calc1 = document.getElementById("calc1");
+        const calc2 = document.getElementById("calc2");
+        const calc3 = document.getElementById("calc3");
+
+        calc1.style.display = "none";  // Hide the Loan Amount Calculator
+        calc2.style.display = "block"; // Show the EMI Calculator
+        calc3.style.display = "none";  // Hide the Loan Eligibility Calculator
+    }
+
+    function show3() {
+        const calc1 = document.getElementById("calc1");
+        const calc2 = document.getElementById("calc2");
+        const calc3 = document.getElementById("calc3");
+
+        calc1.style.display = "none";  // Hide the Loan Amount Calculator
+        calc2.style.display = "none";  // Hide the EMI Calculator
+        calc3.style.display = "block"; // Show the Loan Eligibility Calculator
+    }
+</script>
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <li onclick="show1()">Loan Amount Calculator</li><br>
+        <li onclick="show2()">EMI Calculator</li><br>
+        <li onclick="show3()">Loan Eligibility Calculator</li><br>
+    </div>
+    <div class="calculator" id="calc1" style="display:none;">
+        <h1>Loan Amount Calculator</h1>
+        <label for="emi">EMI:</label>
+        <input type="number" id="emi">
+
+        <label for="tenure">Tenure (Years):</label>
+        <input type="number" id="tenure">
+
+        <label for="payment-mode">Payment Mode (Months per Year):</label>
+        <input type="number" id="payment-mode">
+
+        <label for="rate-of-interest">Rate of Interest (% per annum):</label>
+        <input type="number" id="rate-of-interest" step="0.1">
+
+        <button onclick="calculateLoanAmount()">Calculate Loan Amount</button>
+
+        <h2>Loan Amount: <span id="loan-amount">0.00</span></h2>
+    </div>
+
+    <div class="calculator" id="calc2" style="display:none;">
+        <h1>EMI Calculator</h1>
+        <label for="loan-amount-input">Loan Amount:</label>
+        <input type="number" id="loan-amount-input">
+
+        <label for="tenure-input">Tenure (Years):</label>
+        <input type="number" id="tenure-input">
+
+        <label for="payment-mode-input">Payment Mode (Months per Year):</label>
+        <input type="number" id="payment-mode-input">
+
+        <label for="rate-of-interest-input">Rate of Interest (% per annum):</label>
+        <input type="number" id="rate-of-interest-input" step="0.1">
+
+        <button onclick="calculateEMI()">Calculate EMI</button>
+
+        <h2>EMI: <span id="emi-amount">0.00</span></h2>
+    </div>
+
+    <div class="calculator" id="calc3" style="display:none;">
+        <h1>Loan Eligibility Calculator</h1>
+        <label for="home-loan-emi">Home Loan EMI:</label>
+        <input type="number" id="home-loan-emi" >
+
+        <label for="take-home-salary">Take Home Salary:</label>
+        <input type="number" id="take-home-salary" >
+
+        <label for="personal-loan-emi">Personal Loan EMI:</label>
+        <input type="number" id="personal-loan-emi" >
+
+        <label for="creditcard-dues1">Credit Card Dues 1:</label>
+        <input type="number" id="creditcard-dues1" >
+
+        <label for="creditcard-dues2">Credit Card Dues 2:</label>
+        <input type="number" id="creditcard-dues2">
+
+        <label for="creditcard-minimum-payment">Credit Card Minimum Payment:</label>
+        <input type="number" id="creditcard-minimum-payment" >
+
+        <label for="emi-paying-capacity">EMI Paying Capacity:</label>
+        <input type="number" id="emi-paying-capacity" >
+
+        <button onclick="calculateEligibility()">Calculate Eligibility</button>
+
+        <h2>Eligible Loan Amount: <span id="eligible-loan-amount">0.00</span></h2>
+    </div>
+
+    <script>
+        function calculateLoanAmount() {
+            // Get input values
+            const emi = parseFloat(document.getElementById('emi').value);
+            const tenure = parseFloat(document.getElementById('tenure').value);
+            const paymentMode = parseFloat(document.getElementById('payment-mode').value);
+            const annualInterestRate = parseFloat(document.getElementById('rate-of-interest').value);
+
+            // Convert annual interest rate to monthly and tenure to months
+            const monthlyInterestRate = annualInterestRate / 100 / paymentMode;
+            const totalPayments = tenure * paymentMode;
+
+            // Calculate loan amount using the PV formula
+            const loanAmount = emi * ((1 - Math.pow(1 + monthlyInterestRate, -totalPayments)) / monthlyInterestRate);
+
+            // Display the result
+            document.getElementById('loan-amount').textContent = loanAmount.toFixed(2);
+        }
+
+        function calculateEMI() {
+            // Get input values
+            const loanAmount = parseFloat(document.getElementById('loan-amount-input').value);
+            const tenure = parseFloat(document.getElementById('tenure-input').value);
+            const paymentMode = parseFloat(document.getElementById('payment-mode-input').value);
+            const annualInterestRate = parseFloat(document.getElementById('rate-of-interest-input').value);
+
+            // Convert annual interest rate to monthly and tenure to months
+            const monthlyInterestRate = annualInterestRate / 100 / paymentMode;
+            const totalPayments = tenure * paymentMode;
+
+            // Calculate EMI using the PMT formula
+            const emi = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalPayments));
+
+            // Display the result
+            document.getElementById('emi-amount').textContent = emi.toFixed(2);
+        }
+
+        function calculateEligibility() {
+            // Get input values
+            const homeLoanEMI = parseFloat(document.getElementById('home-loan-emi').value);
+            const takeHomeSalary = parseFloat(document.getElementById('take-home-salary').value);
+            const personalLoanEMI = parseFloat(document.getElementById('personal-loan-emi').value);
+            const creditCardDues1 = parseFloat(document.getElementById('creditcard-dues1').value);
+            const creditCardDues2 = parseFloat(document.getElementById('creditcard-dues2').value);
+            const creditCardMinimumPayment = parseFloat(document.getElementById('creditcard-minimum-payment').value);
+            const emiPayingCapacity = parseFloat(document.getElementById('emi-paying-capacity').value);
+
+            // Calculate the available amount for new EMI
+            const lessFOIR = takeHomeSalary * 0.5;
+            const totalOtherEMIs = personalLoanEMI + creditCardMinimumPayment;
+            const availableAmount = lessFOIR - totalOtherEMIs;
+
+            // Calculate the eligible loan amount
+            const eligibleLoanAmount = emiPayingCapacity * (1 - Math.pow(1 + (0.095 / 12), -7 * 12)) / (0.095 / 12);
+
+            // Display the result
+            document.getElementById('eligible-loan-amount').textContent = eligibleLoanAmount.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>

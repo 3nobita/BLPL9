@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<!-- Coding by CodingNepal | www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= user.name %> The HOD
+    </title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        .form-con1 {
+            display: none;
+        }
+
+        .form-con1 #form1,
+        .form-con1 #form2 {
+            font-family: Arial, sans-serif;
+            /* display: flex; */
+            justify-content: center;
+            align-items: center;
+            margin-top: -100px;
+        }
+
+        .form-container {
+            width: 600px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            margin-top: -50px;
+            margin-inline: 25%;
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+            color: #1a73e8;
+            text-align: left;
+        }
+
+        .form-container p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 05px;
+            text-align: left;
+        }
+
+        .form-container .form-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #1a73e8;
+            color: #ffffff;
+            border-radius: 50%;
+            padding: 10px;
+            display: inline-block;
+        }
+
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            /* Added padding inside the input boxes */
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            background-color: #f4f5f7;
+            font-size: 14px;
+            color: #333;
+            box-sizing: border-box;
+            /* Ensures padding doesn't affect the total width */
+        }
+
+        .form-container input[type="text"]::placeholder {
+            color: #a9a9a9;
+        }
+
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #1a73e8;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #0c61d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+        }
+
+        .sidebar {
+            position: fixed;
+            height: 100%;
+            width: 240px;
+            background: #06103D;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.active {
+            width: 60px;
+        }
+
+
+        .sidebar .logo-details {
+            height: 80px;
+            padding: 20px;
+        }
+
+        .sidebar .logo-details i {
+            font-size: 28px;
+            font-weight: 500;
+            color: #fff;
+            min-width: 60px;
+            text-align: center
+        }
+
+        .sidebar .logo-details {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .logo_name {
+            font-size: small;
+        }
+
+        .sidebar .nav-links {
+            margin-top: 10px;
+        }
+
+        .sidebar .nav-links li {
+            position: relative;
+            list-style: none;
+            height: 50px;
+        }
+
+        .sidebar .nav-links li a {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .sidebar .nav-links li a.active {
+            background: #081D45;
+        }
+
+        .sidebar .nav-links li a:hover {
+            background: #081D45;
+        }
+
+        .sidebar .nav-links li i {
+            min-width: 60px;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .sidebar .nav-links li a .links_name {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .sidebar .nav-links .log_out {
+            position: absolute;
+            bottom: 2em;
+            width: 100%;
+        }
+
+        .sidebar .nav-links .sup {
+            position: absolute;
+            bottom: 5em;
+            width: 100%;
+        }
+
+        .home-section {
+            position: relative;
+            background: #EFEEF1;
+            min-height: 100vh;
+            width: calc(100% - 240px);
+            left: 240px;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.active~.home-section {
+            width: calc(100% - 60px);
+            left: 60px;
+        }
+
+        .home-section nav {
+            display: flex;
+            justify-content: space-between;
+            height: 80px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: calc(100% - 240px);
+            left: 240px;
+            z-index: 100;
+            padding: 0 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.active~.home-section nav {
+            left: 60px;
+            width: calc(100% - 60px);
+        }
+
+        .home-section nav .sidebar-button {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        nav .sidebar-button i {
+            font-size: 35px;
+            margin-right: 10px;
+        }
+
+        .home-section nav .search-box {
+            position: relative;
+            height: 50px;
+            max-width: 550px;
+            width: 100%;
+            margin: 0 20px;
+        }
+
+        input {
+            background: rgba(41, 105, 242, 0.0);
+            border: none;
+            padding-left: 20px;
+        }
+
+        nav .search-box input {
+            height: 100%;
+            width: 100%;
+            outline: none;
+            background: #F5F6FA;
+            border: 2px solid #EFEEF1;
+            border-radius: 6px;
+            font-size: 18px;
+            padding: 0 15px;
+        }
+
+        nav .search-box .bx-search {
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            background: #2697FF;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 4px;
+            line-height: 40px;
+            text-align: center;
+            color: #fff;
+            font-size: 22px;
+            transition: all 0.4 ease;
+        }
+
+        .home-section nav .profile-details {
+            display: flex;
+            align-items: center;
+            background: #F5F6FA;
+            border: 2px solid #EFEEF1;
+            border-radius: 6px;
+            height: 50px;
+            min-width: 190px;
+            padding: 0 15px 0 2px;
+        }
+
+        nav .profile-details img {
+            height: 40px;
+            width: 40px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        nav .profile-details .admin_name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin: 0 10px;
+            white-space: nowrap;
+        }
+
+        nav .profile-details i {
+            font-size: 25px;
+            color: #333;
+        }
+
+        .home-section .home-content {
+            width: 100%;
+            position: relative;
+            padding-top: 104px;
+
+        }
+
+        .home-content .overview-boxes {
+            padding: 0 20px;
+            margin-bottom: 26px;
+            margin-top: -180px;
+            width: 100%;
+
+
+        }
+
+        .overview-boxes table {
+            width: 100%;
+
+        }
+
+        .overview-boxes td {
+            width: 25%;
+
+        }
+
+        .overview-boxes .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 10px;
+        }
+
+        .overview-boxes .box-topic {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .home-content .box .number {
+            display: inline-block;
+            font-size: 35px;
+            margin-top: -6px;
+            font-weight: 500;
+        }
+
+        .home-content .box .indicator {
+            display: flex;
+            align-items: center;
+        }
+
+        .home-content .box .indicator i {
+            height: 20px;
+            width: 20px;
+            background: #8FDACB;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
+        .box .indicator i.down {
+            background: #e87d88;
+        }
+
+        .home-content .box .indicator .text {
+            font-size: 12px;
+        }
+
+        .home-content .box .cart {
+            display: inline-block;
+            font-size: 32px;
+            height: 50px;
+            width: 50px;
+            background: #cce5ff;
+            line-height: 50px;
+            text-align: center;
+            color: #66b0ff;
+            border-radius: 12px;
+            margin: -15px 0 0 6px;
+        }
+
+        .home-content .box .cart.two {
+            color: #2BD47D;
+            background: #C0F2D8;
+        }
+
+        .home-content .box .cart.three {
+            color: #ffc233;
+            background: #ffe8b3;
+        }
+
+        .home-content .box .cart.four {
+            color: #e05260;
+            background: #f7d4d7;
+        }
+
+        .home-content .total-order {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .home-content .sales-boxes {
+            display: flex;
+            justify-content: space-between;
+            /* padding: 0 20px; */
+        }
+
+        /* left box */
+        .home-content .sales-boxes .recent-sales {
+            width: 65%;
+            background: #fff;
+            padding: 20px 30px;
+            margin: 0 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-content .sales-boxes .sales-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sales-boxes .box .title {
+            font-size: 24px;
+            font-weight: 500;
+            /* margin-bottom: 10px; */
+        }
+
+        .sales-boxes .sales-details li.topic {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .sales-boxes .sales-details li {
+            list-style: none;
+            margin: 8px 0;
+        }
+
+        .sales-boxes .sales-details li a {
+            font-size: 18px;
+            color: #333;
+            font-size: 400;
+            text-decoration: none;
+        }
+
+        .sales-boxes .box .button {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .sales-boxes .box .button a {
+            color: #fff;
+            background: #0A2558;
+            padding: 4px 12px;
+            font-size: 15px;
+            font-weight: 400;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .sales-boxes .box .button a:hover {
+            background: #0d3073;
+        }
+
+        /* Right box */
+        .home-content .sales-boxes .top-sales {
+            width: 35%;
+            background: #fff;
+            padding: 20px 30px;
+            margin: 0 20px 0 0;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sales-boxes .top-sales li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .sales-boxes .top-sales li a img {
+            height: 40px;
+            width: 40px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-right: 10px;
+            background: #333;
+        }
+
+        .sales-boxes .top-sales li a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .sales-boxes .top-sales li .product,
+        .price {
+            font-size: 17px;
+            font-weight: 400;
+            color: #333;
+        }
+
+        /* Responsive Media Query */
+        @media (max-width: 1240px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .sidebar.active {
+                width: 220px;
+            }
+
+            .home-section {
+                width: calc(100% - 60px);
+                left: 60px;
+            }
+
+            .sidebar.active~.home-section {
+                /* width: calc(100% - 220px); */
+                overflow: hidden;
+                left: 220px;
+            }
+
+            .home-section nav {
+                width: calc(100% - 60px);
+                left: 60px;
+            }
+
+            .sidebar.active~.home-section nav {
+                width: calc(100% - 220px);
+                left: 220px;
+            }
+        }
+
+        @media (max-width: 1150px) {
+            .home-content .sales-boxes {
+                flex-direction: column;
+            }
+
+            .home-content .sales-boxes .box {
+                width: 100%;
+                overflow-x: scroll;
+                margin-bottom: 30px;
+            }
+
+            .home-content .sales-boxes .top-sales {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .overview-boxes .box {
+                width: calc(100% / 2 - 15px);
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            nav .sidebar-button .dashboard,
+            nav .profile-details .admin_name,
+            nav .profile-details i {
+                display: none;
+            }
+
+            .home-section nav .profile-details {
+                height: 50px;
+                min-width: 40px;
+            }
+
+            .home-content .sales-boxes .sales-details {
+                width: 560px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .overview-boxes .box {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .sidebar.active~.home-section nav .profile-details {
+                display: none;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .sidebar {
+                width: 0;
+            }
+
+            .sidebar.active {
+                width: 60px;
+            }
+
+            .home-section {
+                width: 100%;
+                left: 0;
+            }
+
+            .sidebar.active~.home-section {
+                left: 60px;
+                width: calc(100% - 60px);
+            }
+
+            .home-section nav {
+                width: 100%;
+                left: 0;
+            }
+
+            .sidebar.active~.home-section nav {
+                left: 60px;
+                width: calc(100% - 60px);
+            }
+        }
+
+        .EMTRFs-list {
+            margin-top: 20px;
+        }
+
+        .EMTRFs-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .EMTRFs-item {
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            padding: 15px 40px 15px 40px;
+            margin: 2px 20px 0 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .EMTRFs-item table {
+            width: 100%;
+        }
+
+        .EMTRFs-item td {
+            width: 20%;
+        }
+
+        .lebe table {
+            width: 100%;
+        }
+
+        .lebe td {
+            width: 20%;
+        }
+
+
+        .EMTRFs-header {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .EMTRFs-header:hover {
+            background-color: #c2c2e9;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .EMTRFs-details {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .EMTRFs-item.active .EMTRFs-details {
+            display: block;
+        }
+
+        .EMTRFs-details div {
+            margin-bottom: 8px;
+        }
+
+        .EMTRFs-details strong {
+            color: var(--main-color);
+        }
+
+        /* Optional: Style the calendar container */
+        #calendarContainer {
+            position: relative;
+            right: 4em;
+            width: 100%;
+            padding: 5px 20px 5px 20px;
+            background: rgba(41, 105, 242, 0.3);
+            border-radius: 100px;
+            margin: 0 auto;
+        }
+
+        /* Optional: Style the form */
+        .filter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            left: 4em;
+        }
+
+        .sub {
+            position: relative;
+            right: 63px;
+            width: 100%;
+            padding: 5px 20px 5px 20px;
+            background: rgba(41, 105, 242);
+            border-radius: 100px;
+            margin-top: 5px;
+            color: white;
+            border: 2px solid whitesmoke;
+        }
+
+        .lebe {
+            background-color: #06103D;
+            color: white;
+            border-radius: 5px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px 40px 15px 40px;
+            text-align: left;
+        }
+
+        .status-pending {
+            color: yellow;
+        }
+
+        .status-accepted {
+            color: green;
+        }
+
+        .status-declined {
+            color: red;
+        }
+
+        .right-side {
+            text-align: center;
+        }
+
+        .hero {
+            width: 100%;
+            height: 250px;
+            background: #2969F2;
+
+
+        }
+
+        .EM strong {
+            display: flex;
+            text-align: left;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <div class="lo">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjnK5_8epP-uhfyryZPtBqhw0cD_Afn5Fk9N_E_OOfMnZnM_n-5vx0aRJ9ScirhPBL3YbRvU7O4M-8wH057sEn2VCEpSrLtoJET3WNf4J4KAYB3JodUuOwRubZzhxIwKjwAAOEXGFAVVEf1ZlLQCSZJge-rPB2gG4GTO5sfnaYfn2GDvYTYA6H7ib4tBmg/s320/blpl.jpg"
+                    style="height: auto;width:150px;" alt="Blpl">
+                <!-- <i class='bx bxl-c-plus-plus'></i> -->
+            </div>
+        </div>
+        <ul class="nav-links" style="margin-top:3vh ;">
+            <li>
+                <a href="/hod/dashboard">
+                    <i class='bx bx-calendar-alt'></i>
+                    <span id="showForm2" class="links_name">Back</span>
+                </a>
+            </li>
+            <div class="ab"
+                style="border-radius: 10px;background:rgba(255,255,255,0.1);padding:20px;margin:20px;top:28em; position:absolute">
+                <h2 style="color: #2969F2;">About</h2>
+                <p style="font-size: 10px;color:rgba(255,255,255,0.3);">Lorem ipsum dolor sit amet consectetur
+                    adipisicing elit. Lorem ipsum dolor
+                    sit amet. </p>
+            </div>
+            <li class="sup">
+                <a href="#">
+                    <i class='bx bx-user-circle'></i>
+                    <span class="links_name">Support</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="/">
+                    <i class='bx bx-log-out'></i>
+                    <span class="links_name">Log out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class='bx bx-menu sidebarBtn'></i>
+                <span class="dashboard">
+                    <%= user.name %>'s Dashboard
+
+                </span>
+            </div>
+        </nav>
+        <div class="hero">
+            <div class="ek"
+                style="background: url('https://img.freepik.com/free-vector/minimalistic-zig-zag-pattern-black-lines-geometric-wallpaper_1017-44138.jpg');height:100%;opacity:.2;z-index:0;">
+
+            </div>
+        </div>
+        <div class="form-container">
+            <div class="form-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.59 5.58L20 12l-8-8-8 8z" />
+                </svg>
+            </div>
+            <h2>Lead form</h2>
+            <form class="travelForm" action="/api/HOD/ADMIN/TRF" method="POST">
+                <div class="form-group">
+                    <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="middleName" name="middleName" placeholder="Middle Name">
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="mobileNo" name="mobileNo" placeholder="Mobile Number" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="emailId" name="emailId" placeholder="Email ID" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="OTP" name="OTP" placeholder="OTP">
+                </div>
+            
+                <div class="form-group">
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Date of Birth" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="panNumber" name="panNumber" placeholder="PAN Number" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="companyName" name="companyName" placeholder="Company Name" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="companyType" name="companyType" placeholder="Company Type" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="date" id="joining" name="joining" placeholder="Joining Date" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="Experience" name="Experience" placeholder="Experience (Years)" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="currentEMI" name="currentEMI" placeholder="Current EMI">
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="salaryPaid" name="salaryPaid" placeholder="Salary Paid">
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="salaryInHand" name="salaryInHand" placeholder="Salary In Hand">
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="CIBIL" name="CIBIL" placeholder="CIBIL Score">
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="loanAmount" name="loanAmount" placeholder="Loan Amount">
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="City" name="City" placeholder="City" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="pinCode" name="pinCode" placeholder="PIN Code" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="text" id="state" name="state" placeholder="State" required>
+                </div>
+            
+                <div class="form-group">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+            
+
+        </div>
+    </section>
+    <script>
+        flatpickr("#dateRange", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "F j, Y",
+            allowInput: true,
+            onChange: function (selectedDates) {
+                // Check if two dates are selected
+                if (selectedDates.length === 2) {
+                    // Get start and end dates in YYYY-MM-DD format
+                    const startDate = selectedDates[0].toISOString().split('T')[0];
+                    const endDate = selectedDates[1].toISOString().split('T')[0];
+
+                    // Create a hidden input field to store startDate and endDate
+                    let startDateInput = document.querySelector('input[name="startDate"]');
+                    let endDateInput = document.querySelector('input[name="endDate"]');
+
+                    // Create or update hidden inputs for start and end dates
+                    if (!startDateInput) {
+                        startDateInput = document.createElement('input');
+                        startDateInput.type = 'hidden';
+                        startDateInput.name = 'startDate';
+                        document.getElementById('filterForm').appendChild(startDateInput);
+                    }
+                    if (!endDateInput) {
+                        endDateInput = document.createElement('input');
+                        endDateInput.type = 'hidden';
+                        endDateInput.name = 'endDate';
+                        document.getElementById('filterForm').appendChild(endDateInput);
+                    }
+
+                    // Set the values of the hidden inputs
+                    startDateInput.value = startDate;
+                    endDateInput.value = endDate;
+                }
+            }
+        });
+
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        let logoDiv = document.querySelector(".logo-details");
+        let abouts = document.querySelector(".ab");
+
+        sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+                logoDiv.style.display = 'none';
+                abouts.style.display = "none"
+
+            } else {
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+                logoDiv.style.display = 'block';
+                abouts.style.display = 'block';
+
+            }
+        }
+
+        document.querySelectorAll('.EMTRFs-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Toggle the 'active' class on the clicked item
+                item.classList.toggle('active');
+            });
+        });
+
+
+
+    </script>
+</body>
+
+</html>

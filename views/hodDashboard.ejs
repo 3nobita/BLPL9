@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<!-- Coding by CodingNepal | www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= user.name %> The HOD
+    </title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+        .EMTRFs-list { display: none; }
+        .active { display: block; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+        }
+
+        .sidebar {
+            position: fixed;
+            height: 100%;
+            width: 240px;
+            background: #06103D;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.active {
+            width: 60px;
+        }
+
+
+        .sidebar .logo-details {
+            height: 80px;
+            padding: 20px;
+        }
+
+        .sidebar .logo-details i {
+            font-size: 28px;
+            font-weight: 500;
+            color: #fff;
+            min-width: 60px;
+            text-align: center
+        }
+
+        .sidebar .logo-details {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .logo_name {
+            font-size: small;
+        }
+
+        .sidebar .nav-links {
+            margin-top: 10px;
+        }
+
+        .sidebar .nav-links li {
+            position: relative;
+            list-style: none;
+            height: 50px;
+        }
+
+        .sidebar .nav-links li a {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .sidebar .nav-links li a.active {
+            background: #081D45;
+        }
+
+        .sidebar .nav-links li a:hover {
+            background: #081D45;
+        }
+
+        .sidebar .nav-links li i {
+            min-width: 60px;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .sidebar .nav-links li a .links_name {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .sidebar .nav-links .log_out {
+            position: absolute;
+            bottom: 2em;
+            width: 100%;
+        }
+
+        .sidebar .nav-links .sup {
+            position: absolute;
+            bottom: 5em;
+            width: 100%;
+        }
+
+        .home-section {
+            position: relative;
+            background: #EFEEF1;
+            min-height: 100vh;
+            width: calc(100% - 240px);
+            left: 240px;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.active~.home-section {
+            width: calc(100% - 60px);
+            left: 60px;
+        }
+
+        .home-section nav {
+            display: flex;
+            justify-content: space-between;
+            height: 80px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: calc(100% - 240px);
+            left: 240px;
+            z-index: 100;
+            padding: 0 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.active~.home-section nav {
+            left: 60px;
+            width: calc(100% - 60px);
+        }
+
+        .home-section nav .sidebar-button {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        nav .sidebar-button i {
+            font-size: 35px;
+            margin-right: 10px;
+        }
+
+        .home-section nav .search-box {
+            position: relative;
+            height: 50px;
+            max-width: 550px;
+            width: 100%;
+            margin: 0 20px;
+        }
+        input{
+            background: rgba(41, 105, 242, 0.0);
+            border: none;
+            padding-left: 20px;
+        }
+
+        nav .search-box input {
+            height: 100%;
+            width: 100%;
+            outline: none;
+            background: #F5F6FA;
+            border: 2px solid #EFEEF1;
+            border-radius: 6px;
+            font-size: 18px;
+            padding: 0 15px;
+        }
+
+        nav .search-box .bx-search {
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            background: #2697FF;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 4px;
+            line-height: 40px;
+            text-align: center;
+            color: #fff;
+            font-size: 22px;
+            transition: all 0.4 ease;
+        }
+
+        .home-section nav .profile-details {
+            display: flex;
+            align-items: center;
+            background: #F5F6FA;
+            border: 2px solid #EFEEF1;
+            border-radius: 6px;
+            height: 50px;
+            min-width: 190px;
+            padding: 0 15px 0 2px;
+        }
+
+        nav .profile-details img {
+            height: 40px;
+            width: 40px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        nav .profile-details .admin_name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin: 0 10px;
+            white-space: nowrap;
+        }
+
+        nav .profile-details i {
+            font-size: 25px;
+            color: #333;
+        }
+
+        .home-section .home-content {
+            width: 100%;
+            position: relative;
+            padding-top: 104px;
+
+        }
+
+        .home-content .overview-boxes {
+            padding: 0 20px;
+            margin-bottom: 26px;
+            margin-top: -180px;
+            width: 100%;
+
+
+        }
+
+        .overview-boxes table {
+            width: 100%;
+
+        }
+
+        .overview-boxes td {
+            width: 25%;
+
+        }
+
+        .overview-boxes .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 10px;
+        }
+
+        .overview-boxes .box-topic {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .home-content .box .number {
+            display: inline-block;
+            font-size: 35px;
+            margin-top: -6px;
+            font-weight: 500;
+        }
+
+        .home-content .box .indicator {
+            display: flex;
+            align-items: center;
+        }
+
+        .home-content .box .indicator i {
+            height: 20px;
+            width: 20px;
+            background: #8FDACB;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
+        .box .indicator i.down {
+            background: #e87d88;
+        }
+
+        .home-content .box .indicator .text {
+            font-size: 12px;
+        }
+
+        .home-content .box .cart {
+            display: inline-block;
+            font-size: 32px;
+            height: 50px;
+            width: 50px;
+            background: #cce5ff;
+            line-height: 50px;
+            text-align: center;
+            color: #66b0ff;
+            border-radius: 12px;
+            margin: -15px 0 0 6px;
+        }
+
+        .home-content .box .cart.two {
+            color: #2BD47D;
+            background: #C0F2D8;
+        }
+
+        .home-content .box .cart.three {
+            color: #ffc233;
+            background: #ffe8b3;
+        }
+
+        .home-content .box .cart.four {
+            color: #e05260;
+            background: #f7d4d7;
+        }
+
+        .home-content .total-order {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .home-content .sales-boxes {
+            display: flex;
+            justify-content: space-between;
+            /* padding: 0 20px; */
+        }
+
+        /* left box */
+        .home-content .sales-boxes .recent-sales {
+            width: 65%;
+            background: #fff;
+            padding: 20px 30px;
+            margin: 0 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-content .sales-boxes .sales-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sales-boxes .box .title {
+            font-size: 24px;
+            font-weight: 500;
+            /* margin-bottom: 10px; */
+        }
+
+        .sales-boxes .sales-details li.topic {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .sales-boxes .sales-details li {
+            list-style: none;
+            margin: 8px 0;
+        }
+
+        .sales-boxes .sales-details li a {
+            font-size: 18px;
+            color: #333;
+            font-size: 400;
+            text-decoration: none;
+        }
+
+        .sales-boxes .box .button {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .sales-boxes .box .button a {
+            color: #fff;
+            background: #0A2558;
+            padding: 4px 12px;
+            font-size: 15px;
+            font-weight: 400;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .sales-boxes .box .button a:hover {
+            background: #0d3073;
+        }
+
+        /* Right box */
+        .home-content .sales-boxes .top-sales {
+            width: 35%;
+            background: #fff;
+            padding: 20px 30px;
+            margin: 0 20px 0 0;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sales-boxes .top-sales li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .sales-boxes .top-sales li a img {
+            height: 40px;
+            width: 40px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-right: 10px;
+            background: #333;
+        }
+
+        .sales-boxes .top-sales li a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .sales-boxes .top-sales li .product,
+        .price {
+            font-size: 17px;
+            font-weight: 400;
+            color: #333;
+        }
+
+        /* Responsive Media Query */
+        @media (max-width: 1240px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .sidebar.active {
+                width: 220px;
+            }
+
+            .home-section {
+                width: calc(100% - 60px);
+                left: 60px;
+            }
+
+            .sidebar.active~.home-section {
+                /* width: calc(100% - 220px); */
+                overflow: hidden;
+                left: 220px;
+            }
+
+            .home-section nav {
+                width: calc(100% - 60px);
+                left: 60px;
+            }
+
+            .sidebar.active~.home-section nav {
+                width: calc(100% - 220px);
+                left: 220px;
+            }
+        }
+
+        @media (max-width: 1150px) {
+            .home-content .sales-boxes {
+                flex-direction: column;
+            }
+
+            .home-content .sales-boxes .box {
+                width: 100%;
+                overflow-x: scroll;
+                margin-bottom: 30px;
+            }
+
+            .home-content .sales-boxes .top-sales {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .overview-boxes .box {
+                width: calc(100% / 2 - 15px);
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            nav .sidebar-button .dashboard,
+            nav .profile-details .admin_name,
+            nav .profile-details i {
+                display: none;
+            }
+
+            .home-section nav .profile-details {
+                height: 50px;
+                min-width: 40px;
+            }
+
+            .home-content .sales-boxes .sales-details {
+                width: 560px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            body{
+                display: none;
+            }
+            .overview-boxes .box {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .sidebar.active~.home-section nav .profile-details {
+                display: none;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .sidebar {
+                width: 0;
+            }
+
+            .sidebar.active {
+                width: 60px;
+            }
+
+            .home-section {
+                width: 100%;
+                left: 0;
+            }
+
+            .sidebar.active~.home-section {
+                left: 60px;
+                width: calc(100% - 60px);
+            }
+
+            .home-section nav {
+                width: 100%;
+                left: 0;
+            }
+
+            .sidebar.active~.home-section nav {
+                left: 60px;
+                width: calc(100% - 60px);
+            }
+        }
+
+        .EMTRFs-list {
+            margin-top: 20px;
+        }
+
+        .EMTRFs-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .EMTRFs-item {
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            padding: 15px 40px 15px 40px;
+            margin: 2px 20px 0 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .EMTRFs-item table {
+            width: 100%;
+        }
+
+        .EMTRFs-item td {
+            width: 20%;
+        }
+
+        .lebe table {
+            width: 100%;
+        }
+
+        .lebe td {
+            width: 20%;
+        }
+
+
+        .EMTRFs-header {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .EMTRFs-header:hover {
+            background-color: #c2c2e9;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .EMTRFs-details {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .EMTRFs-item.active .EMTRFs-details {
+            display: block;
+        }
+
+        .EMTRFs-details div {
+            margin-bottom: 8px;
+        }
+
+        .EMTRFs-details strong {
+            color: var(--main-color);
+        }
+
+        /* Optional: Style the calendar container */
+        #calendarContainer {
+            position: relative;
+            right: 4em;
+            width: 100%;
+            padding: 5px 20px 5px 20px;
+            background: rgba(41, 105, 242, 0.3);
+            border-radius: 100px;
+            margin: 0 auto;
+        }
+
+        /* Optional: Style the form */
+        .filter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            left: 4em;
+        }
+
+        .sub {
+            position: relative;
+            right: 63px;
+            width: 100%;
+            padding: 5px 20px 5px 20px;
+            background: rgba(41, 105, 242);
+            border-radius: 100px;
+            margin-top: 5px;
+            color: white;
+            border: 2px solid whitesmoke;
+        }
+
+        .lebe {
+            background-color: #06103D;
+            color: white;
+            border-radius: 5px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px 40px 15px 40px;
+            text-align: left;
+        }
+        .status-pending {
+            background:  yellow;
+            padding: 2px 20px 2px 20px;
+            border-radius: 10px;
+            
+        }
+        
+        .status-accepted {
+            background: green;
+            padding: 2px 20px 2px 20px;
+            border-radius: 10px;
+        }
+        
+        .status-declined {
+            background: red;
+            padding: 2px 20px 2px 20px;
+            border-radius: 10px;
+        }
+        .right-side {
+            text-align: center;
+        }
+
+        .hero {
+            width: 100%;
+            height: 250px;
+            background: #2969F2;
+
+
+        }
+
+        .EM strong {
+            display: flex;
+            text-align: left;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <div class="lo">
+                <img
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjnK5_8epP-uhfyryZPtBqhw0cD_Afn5Fk9N_E_OOfMnZnM_n-5vx0aRJ9ScirhPBL3YbRvU7O4M-8wH057sEn2VCEpSrLtoJET3WNf4J4KAYB3JodUuOwRubZzhxIwKjwAAOEXGFAVVEf1ZlLQCSZJge-rPB2gG4GTO5sfnaYfn2GDvYTYA6H7ib4tBmg/s320/blpl.jpg"
+                style="height: auto;width:150px;" alt="Blpl">
+                <!-- <i class='bx bxl-c-plus-plus'></i> -->
+            </div>
+
+        </div>
+        <ul class="nav-links" style="margin-top: 20px;">
+            <li>
+                <a href="" id="show-trf">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">My Enquiry</span>
+                </a>
+            </li>
+            <div class="ab"
+                style="border-radius: 10px;background:rgba(255,255,255,0.1);padding:20px;margin:20px;top:28em; position:absolute">
+                <h2 style="color: #2969F2;">About </h2>
+                <p style="font-size: 10px;color:rgba(255,255,255,0.3);">Lorem ipsum dolor sit amet consectetur
+                    adipisicing elit. Lorem ipsum dolor
+                    sit amet. </p>
+            </div>
+            <li class="sup">
+                <a href="#">
+                    <i class='bx bx-user-circle'></i>
+                    <span class="links_name">Support</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="/">
+                    <i class='bx bx-log-out'></i>
+                    <span class="links_name">Log out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class='bx bx-menu sidebarBtn'></i>
+                <span class="dashboard">
+                    <%= user.name.charAt(0).toUpperCase() + user.name.slice(1).toLowerCase() %>'s Dashboard
+                </span>
+            </div>
+        </nav>
+        <div class="hero">
+            <div class="ek"
+                style="background: url('https://img.freepik.com/free-vector/minimalistic-zig-zag-pattern-black-lines-geometric-wallpaper_1017-44138.jpg');height:100%;opacity:.2;z-index:0;">
+
+            </div>
+            <a href="/hod/TRF_ADMIN">
+                <button
+                    style="padding: 10px 30px 10px 30px;z-index:10;right :2em;position:absolute;top:6em; background:#06103D;color:white;border-radius: 10px;border:2px solid white;font-size:20px"
+                    class="bx bx-user-plus">
+                    Create From
+                </button>
+            </a>
+            <p style="left :2em;position:absolute;top:6em; color:white">BLPL Financial Services.</p>
+        </div>
+        <div class="home-content">
+            <div class="overview-boxes">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="box">
+                                <div class="right-side">
+                                    <div class="number"></div>
+                                    <div class="indicator">
+                                        <h1 style="position: relative;top:-39px;left:60px;font-size:40px;"><%= sentCount %></h1>
+                                        <h1 class="bx bx-select-multiple" style="background-color: #2697FF; "></h1>
+                                        <h2>Applied</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="box">
+                                <form class="filter-form" id="filterForm" action="/hod/dashboard" method="GET" style="height: 85px;">
+                                    <div id="calendarContainer">
+                                        <input style="background-color:#2697FF;" type="text" id="dateRange" name="dateRange" placeholder="Select Date Range" required>
+                                    </div>
+                                    <button class="sub" type="submit"><i class='bx bx-history'></i> Filter Data</button>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="box" style="display: none;">
+                                <div class="right-side">
+                                    <div class="number"></div>
+                                    <div class="indicator">
+                                        <h1 style="position: relative;top:-39px;left:60px;font-size:40px;"></h1>
+                                        <h1 class="bx bx-select-multiple" style="background-color: #2697FF; "></h1>
+                                        <h2>Received</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        
+                        
+                        <td>
+                            <div class="box" style="display: none;">
+                                <div class="right-side">
+                                    <div class="number"></div>
+                                    <div class="indicator">
+                                        <h1 class="bx bx-select-multiple" style="background-color: #2697FF; "></h1>
+                                        <h2>Received</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </td> 
+                    </tr>
+                </table>
+            </div>
+            <div class="lebe">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="EM"><strong>Name</strong></div>
+                        </td>
+                        <td>
+                            <div class="EM"><strong>loanAmount</strong></div>
+                        </td>
+                        <td>
+                            <div class="EM"><strong>mobileNo</strong></div>
+                        </td>
+                        <td>
+                            <div class="EM"><strong>Status</strong></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="trf-content" class="EMTRFs-list">
+                <ul>
+                    <% if (hodtrf.length > 0) { %>
+                        <% hodtrf.forEach(item => { %>
+                            <% // Determine the CSS class based on the status
+                            let statusClass;
+                            switch(item.status) {
+                                case 'pending':
+                                    statusClass = 'status-pending';
+                                    break;
+                                case 'accepted':
+                                    statusClass = 'status-accepted';
+                                    break;
+                                case 'declined':
+                                    statusClass = 'status-declined';
+                                    break;
+                                default:
+                                    statusClass = '';
+                            } %>
+                            <li class="EMTRFs-item">
+                                <div class="EMTRFs-header">
+                                    <table>
+                                        <tr>
+                                            <td>
+    
+                                                <div class="EMTRFs-header">
+                                                    <strong>
+                                                        <%= item.firstName %>
+                                                    </strong>
+                                                  </div>
+                                            </td>
+                                            <td>
+    
+                                                <div class="EMTRFs-header">
+                                                    <strong>
+                                                        <%= item.loanAmount %>
+                                                    </strong>
+                                                  </div>
+                                            </td>
+                                            <td>
+    
+                                                <div class="EMTRFs-header">
+                                                    <strong>
+                                                        <%= item.mobileNo %>
+                                                    </strong>
+                                                  </div>
+                                            </td>
+                                            <td>
+    
+                                                <div class="EMTRFs-header">
+                                                    <strong style="background-color: #E3EAF8; border-radius:50px; color:#2969F2; padding:2px 30px 2px 30px;">
+                                                        <%= item.status %>
+                                                    </strong>
+                                                  </div>
+                                            </td>
+                                            </tr>
+    
+                                    </table>
+                                </div>
+                                <div class="EMTRFs-details">
+                                    <div><strong>First Name:</strong> <%= item.firstName %></div>
+                                    <div><strong>Middle Name:</strong> <%= item.middleName %></div>
+                                    <div><strong>Last Name:</strong> <%= item.lastName %></div>
+                                    <div><strong>Mobile No:</strong> <%= item.mobileNo %></div>
+                                    <div><strong>Email Id:</strong> <%= item.emailId %></div>
+                                    <div><strong>Date of Birth:</strong> <%= item.dateOfBirth %></div>
+                                    <div><strong>PAN Number:</strong> <%= item.panNumber %></div>
+                                    <div><strong>Company Name:</strong> <%= item.companyName %></div>
+                                    <div><strong>Company Type:</strong> <%= item.companyType %></div>
+                                    <div><strong>Joining:</strong> <%= item.joining %></div>
+                                    <div><strong>Experience:</strong> <%= item.Experience %></div>
+                                    <div><strong>Current EMI:</strong> <%= item.currentEMI %></div>
+                                    <div><strong>Salary Paid:</strong> <%= item.salaryPaid %></div>
+                                    <div><strong>Salary In Hand:</strong> <%= item.salaryInHand %></div>
+                                    <div><strong>CIBIL:</strong> <%= item.CIBIL %></div>
+                                    <div><strong>Loan Amount:</strong> <%= item.loanAmount %></div>
+                                    <div><strong>City:</strong> <%= item.City %></div>
+                                    <div><strong>Pin Code:</strong> <%= item.pinCode %></div>
+                                    <div><strong>State:</strong> <%= item.state %></div>
+                                    <div><strong>Status:</strong> <%= item.status %></div>
+                                    <% if (item.decision) { %>
+                                        <div><strong>Decision:</strong> <%= item.decision %></div>
+                                    <% } %>
+                                </div>
+                            </li>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No forms to display.</p>
+                    <% } %>
+                </ul>
+                
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#dateRange", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "F j, Y",
+            allowInput: true,
+            onChange: function (selectedDates) {
+                // Check if two dates are selected
+                if (selectedDates.length === 2) {
+                    // Get start and end dates in YYYY-MM-DD format
+                    const startDate = selectedDates[0].toISOString().split('T')[0];
+                    const endDate = selectedDates[1].toISOString().split('T')[0];
+
+                    // Create a hidden input field to store startDate and endDate
+                    let startDateInput = document.querySelector('input[name="startDate"]');
+                    let endDateInput = document.querySelector('input[name="endDate"]');
+
+                    // Create or update hidden inputs for start and end dates
+                    if (!startDateInput) {
+                        startDateInput = document.createElement('input');
+                        startDateInput.type = 'hidden';
+                        startDateInput.name = 'startDate';
+                        document.getElementById('filterForm').appendChild(startDateInput);
+                    }
+                    if (!endDateInput) {
+                        endDateInput = document.createElement('input');
+                        endDateInput.type = 'hidden';
+                        endDateInput.name = 'endDate';
+                        document.getElementById('filterForm').appendChild(endDateInput);
+                    }
+
+                    // Set the values of the hidden inputs
+                    startDateInput.value = startDate;
+                    endDateInput.value = endDate;
+                }
+            }
+        });
+
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        let logoDiv = document.querySelector(".logo-details");
+        let abouts = document.querySelector(".ab");
+
+        sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+                logoDiv.style.display = 'none';
+                abouts.style.display = "none"
+
+            } else {
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+                logoDiv.style.display = 'block';
+                abouts.style.display = 'block';
+
+            }
+        }
+
+        document.querySelectorAll('.EMTRFs-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Toggle the 'active' class on the clicked item
+                item.classList.toggle('active');
+            });
+        });
+
+        function showContent(idToShow) {
+            const contentIds = ['trf-content', 'srf-content', 'trval-content', 'travlesrf-content'];
+            contentIds.forEach(id => {
+                const contentElement = document.getElementById(id);
+                if (id === idToShow) {
+                    contentElement.classList.add('active');
+                } else {
+                    contentElement.classList.remove('active');
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const hodId = 'HOD_ID'; // Replace with actual HOD ID or fetch dynamically
+
+            fetch(`/api/hod/requests/${hodId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('requestsTable');
+                    data.forEach(request => {
+                        const row = table.insertRow();
+                        row.insertCell(0).textContent = request.employeeCode;
+                        row.insertCell(1).textContent = request.dateOfRequest;
+                        row.insertCell(2).textContent = request.travellerName;
+                        // Add more cells as needed
+                    });
+                });
+        });
+
+        
+        // Add event listeners to buttons
+        document.getElementById('show-trf').addEventListener('click', function(event) {
+            event.preventDefault();
+            showContent('trf-content');
+        });
+        
+        document.getElementById('show-srf').addEventListener('click', function(event) {
+            event.preventDefault();
+            showContent('srf-content');
+        });
+        
+        document.getElementById('show-trval').addEventListener('click', function(event) {
+            event.preventDefault();
+            showContent('trval-content');
+        });
+        
+        document.getElementById('show-travlesrf').addEventListener('click', function(event) {
+            event.preventDefault();
+            showContent('travlesrf-content');
+        });
+          // SRF is hidden by default
+    </script>
+</body>
+
+</html>

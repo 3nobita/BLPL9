@@ -1,0 +1,179 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Amount Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .navbar button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .navbar button:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input,
+        button {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body cz-shortcut-listen="true">
+    <%- include('parts/header') %>
+
+    <div class="navbar">
+        <button onclick="window.location.href='EMI-CALCULATOR'" fdprocessedid="fjho8">EMI
+            Calculator</button>
+        <button onclick="window.location.href='Loan-Eligibility-Calculator'"
+            fdprocessedid="lzhz1b">Loan Eligibility Calculator
+        </button>
+    </div>
+
+    <div class="container">
+        <h1 class="emi-calculator-title">Loan Amount Calculator</h1>
+
+<style>
+    .emi-calculator-title {
+        text-align: center; /* Center the heading */
+        color: #103C63; /* Heading color */
+        font-size: 3rem; /* Default font size */
+        margin: 20px 0; /* Margin above and below */
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    }
+
+    @media (max-width: 768px) {
+        .emi-calculator-title {
+            font-size: 2.5rem; /* Slightly smaller font for medium screens */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .emi-calculator-title {
+            font-size: 2rem; /* Further smaller font for small screens */
+        }
+    }
+</style>
+
+        <form id="calculator-form">
+            <label for="emi">EMI:</label>
+            <input type="number" id="emi" placeholder="Enter EMI" fdprocessedid="jxitir">
+
+            <label for="tenure">Tenure (Years):</label>
+            <input type="number" id="tenure" placeholder="Enter Tenure in Years" fdprocessedid="oz0s7h">
+
+            <label for="payment-mode">Payment Mode (Months per Year):</label>
+            <input type="number" id="payment-mode" placeholder="Enter Number of Payments per Year"
+                fdprocessedid="4objye">
+
+            <label for="interest-rate">Rate of Interest (%):</label>
+            <input type="number" id="interest-rate" placeholder="Enter Rate of Interest" step="0.01"
+                fdprocessedid="mv8w1">
+
+            <button type="button" onclick="calculateLoanAmount()" fdprocessedid="1pu9n">Calculate Loan Amount</button>
+
+            <div class="result" id="result"></div>
+        </form>
+    </div>
+
+    <script>
+        function calculateLoanAmount() {
+            // Get values from the form
+            const emi = parseFloat(document.getElementById('emi').value) || 0;
+            const tenureYears = parseFloat(document.getElementById('tenure').value) || 0;
+            const paymentMode = parseFloat(document.getElementById('payment-mode').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+
+            // Calculate loan amount using the EMI capacity
+            const numberOfPayments = tenureYears * paymentMode;
+            const monthlyInterestRate = (interestRate / 100) / paymentMode;
+
+            let loanAmount;
+            if (monthlyInterestRate === 0) {
+                // Special case: if the interest rate is 0%
+                loanAmount = emi * numberOfPayments;
+            } else {
+                // General case
+                loanAmount = emi * ((1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments)) / monthlyInterestRate);
+            }
+
+            // Display the result
+            document.getElementById('result').textContent = `Eligible Loan Amount: ₹${loanAmount.toFixed(2)}`;
+        }
+    </script>
+
+
+    <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
+    <%- include('parts/footer') %>
+
+</body>
+
+</html>

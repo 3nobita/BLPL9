@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Form with Progress Bar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .form-navigation button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-navigation button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-navigation button[disabled] {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="date"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-step:first-of-type {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-navigation button[type="submit"] {
+            background-color: #28a745;
+        }
+
+        .form-navigation button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .form-navigation button[type="submit"]:disabled {
+            background-color: #6c757d;
+        }
+
+        /* Progress Bar Styles */
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background-color: #ddd;
+            border-radius: 4px;
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .progress-bar span {
+            display: block;
+            height: 100%;
+            width: 0;
+            background-color: #007bff;
+            border-radius: 4px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .step-icon.active {
+            background-color: #28a745;
+        }
+
+        .step-icon.completed {
+            background-color: #28a745;
+        }
+
+        .step-label {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .progress-container .step-icon:nth-of-type(1) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-container .step-icon:nth-of-type(2) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-container .step-icon:nth-of-type(3) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-container .step-icon:nth-of-type(4) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-container .step-icon:nth-of-type(5) {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <form id="multiStepForm" action="/form" method="POST">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <span id="progress-bar-fill"></span>
+            </div>
+            <div class="step-icon active" id="step-icon-1">1</div>
+            <div class="step-icon" id="step-icon-2">2</div>
+            <div class="step-icon" id="step-icon-3">3</div>
+            <div class="step-icon" id="step-icon-4">4</div>
+            <div class="step-icon" id="step-icon-5">5</div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="form-step active" id="step1">
+            <h2>Personal Information</h2>
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+            <input type="text" id="middleName" name="middleName" placeholder="Middle Name">
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+            <input type="text" id="mobileNo" name="mobileNo" placeholder="Mobile No" required>
+            <input type="email" id="emailId" name="emailId" placeholder="Email ID" required>
+            <div class="form-navigation">
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-step" id="step2">
+            <h2>Verification & Details</h2>
+            <input type="text" id="OTP" name="OTP" placeholder="OTP">
+            <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Date of Birth">
+            <input type="text" id="panNumber" name="panNumber" placeholder="PAN Number">
+            <div class="form-navigation">
+                <button type="button" onclick="prevStep()">Previous</button>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-step" id="step3">
+            <h2>Employment Information</h2>
+            <input type="text" id="companyName" name="companyName" placeholder="Company Name">
+            <input type="text" id="companyType" name="companyType" placeholder="Company Type">
+            <input type="date" id="joining" name="joining" placeholder="Joining Date">
+            <input type="text" id="Experience" name="Experience" placeholder="Experience">
+            <div class="form-navigation">
+                <button type="button" onclick="prevStep()">Previous</button>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="form-step" id="step4">
+            <h2>Financial Information</h2>
+            <input type="text" id="currentEMI" name="currentEMI" placeholder="Current EMI">
+            <input type="text" id="salaryPaid" name="salaryPaid" placeholder="Salary Paid">
+            <input type="text" id="salaryInHand" name="salaryInHand" placeholder="Salary In Hand">
+            <input type="text" id="CIBIL" name="CIBIL" placeholder="CIBIL">
+            <input type="text" id="loanAmount" name="loanAmount" placeholder="Loan Amount">
+            <div class="form-navigation">
+                <button type="button" onclick="prevStep()">Previous</button>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="form-step" id="step5">
+            <h2>Address Information</h2>
+            <input type="text" id="City" name="City" placeholder="City">
+            <input type="text" id="pinCode" name="pinCode" placeholder="Pin Code">
+            <input type="text" id="state" name="state" placeholder="State">
+            <div class="form-navigation">
+                <button type="button" onclick="prevStep()">Previous</button>
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        let currentStep = 1;
+
+        function showStep(step) {
+            const steps = document.querySelectorAll('.form-step');
+            const icons = document.querySelectorAll('.step-icon');
+            const progressBarFill = document.getElementById('progress-bar-fill');
+
+            steps.forEach((stepDiv) => {
+                stepDiv.classList.remove('active');
+            });
+            icons.forEach((icon, index) => {
+                if (index < step - 1) {
+                    icon.classList.add('completed');
+                } else if (index === step - 1) {
+                    icon.classList.add('active');
+                } else {
+                    icon.classList.remove('completed', 'active');
+                }
+            });
+
+            document.getElementById(`step${step}`).classList.add('active');
+
+            const percentage = ((step - 1) / 4) * 100;
+            progressBarFill.style.width = `${percentage}%`;
+        }
+
+        function nextStep() {
+            if (currentStep < 5) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        // Initialize the form to show the first step
+        showStep(currentStep);
+    </script>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Blpl Finserv</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Center horizontally */
+            justify-content: center;
+            /* Center vertically */
+            text-align: center;
+            /* Center text within the container */
+        }
+
+
+        h1,
+        h2 {
+            color: black;
+            text-align: center;
+            /* Center the headings */
+            position: relative;
+            /* Position relative for pseudo-element */
+            display: inline-block;
+            /* Align the underline with the heading */
+            font-size: 2em;
+            margin: 20px 0;
+            padding-bottom: 10px;
+            /* Space for the underline */
+        }
+
+        h1::after,
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            /* Adjust underline width */
+            height: 2px;
+            /* Adjust underline height */
+            background: #0044cc;
+            /* Underline color */
+            bottom: 0;
+            left: 25%;
+            /* Center the underline */
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        h5 {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('parts/header') %>
+    <section>
+        <div class="inner-page-main-banners">
+            <div class="overlay"></div>
+            <div class="content">
+                <h1>Become Our Partner</h1>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        section {
+            width: 100%;
+            overflow: hidden;
+        }
+    
+        .inner-page-main-banners {
+            position: relative;
+            background-image: url('https://media.licdn.com/dms/image/C4D12AQFtR-7f41OI1w/article-cover_image-shrink_720_1280/0/1595218088889?e=2147483647&v=beta&t=vox1rCLRsYgVk0QQiA9ekmRsJfyM121xyVadPx6EZI0');
+            background-size: cover;
+            background-position: center;
+            height: 400px; /* Default height for larger screens */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    
+        .content {
+            position: relative;
+            color: #FFF;
+            text-align: center;
+        }
+    
+        h1 {
+            margin-bottom: 10px;
+            color: whitesmoke;
+            font-size: 3vw; /* Responsive font size */
+        }
+    
+        @media (max-width: 768px) {
+            .inner-page-main-banners {
+                height: 300px; /* Adjust height for smaller screens */
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .inner-page-main-banners {
+                height: 200px; /* Further adjust for very small screens */
+            }
+    
+            h1 {
+                font-size: 5vw; /* Increase responsiveness for smaller screens */
+            }
+        }
+    </style>
+    
+        <style>
+            .transparent-header-inner {
+                /* background: #69bf6f; */
+                background: #FFF;
+                border-radius: 5px;
+                font-weight: ;
+
+            }
+        </style>
+        <style>
+            .display-flex {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .secure-hidden-items {
+                display: none;
+            }
+
+            .unsecure-hidden-items {
+                display: none;
+            }
+
+            .project-hidden-items {
+                display: none;
+            }
+
+            #project-less-btn {
+                display: none;
+            }
+
+            .tool-hidden-items {
+                display: none;
+            }
+
+            #tool-less-btn {
+                display: none;
+            }
+
+            .insurance-hidden-items {
+                display: none;
+            }
+
+            #insurance-less-btn {
+                display: none;
+            }
+
+            .personal-hidden-items {
+                display: none;
+            }
+
+            #personal-less-btn {
+                display: none;
+            }
+
+            #secure-less-btn {
+                display: none;
+            }
+
+            #unsecure-less-btn {
+                display: none;
+            }
+        </style>
+        <div class="container">
+            <p class="feature">Earn Attractive Commission</p>
+            <p class="feature">Online Dashboard to Check Status of Application</p>
+            <p class="feature">Complete Loan Products Range Under One Roof</p>
+            <p class="feature last">Service Delivered by Qualified CA, MBA and Ex Banker</p>
+            <button class="contact-btn" id="openFormBtn">Contact Us</button>
+        </div>
+        
+        <style>
+            .container {
+                padding: 20px;
+                max-width: 800px; /* Limit width for better readability */
+                margin: 0 auto; /* Center the container */
+                text-align: center; /* Center align text */
+            }
+        
+            .feature {
+                font-size: 2rem; /* Responsive font size */
+                margin: 10px 0; /* Vertical spacing */
+                background: #5784df;
+                padding: 10px 20px;
+                border-radius: 10px;
+                font-weight: 600;
+                color: white;
+                transition: transform 0.2s; /* Smooth scaling effect */
+            }
+        
+            .feature:hover {
+                transform: scale(1.02); /* Slightly enlarge on hover */
+            }
+        
+            .last {
+                margin-bottom: 20px; /* Additional bottom margin for the last item */
+            }
+        
+            .contact-btn {
+                margin-bottom: 20px;
+                padding: 10px 20px;
+                font-size: 1.5rem; /* Responsive button size */
+                background-color: #57df84;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s; /* Smooth background transition */
+            }
+        
+            .contact-btn:hover {
+                background-color: #66da30; /* Darker shade on hover */
+            }
+        
+            @media (max-width: 768px) {
+                .feature {
+                    font-size: 1.8rem; /* Smaller font size for medium screens */
+                }
+        
+                .contact-btn {
+                    font-size: 1.3rem; /* Smaller button size for medium screens */
+                }
+            }
+        
+            @media (max-width: 480px) {
+                .feature {
+                    font-size: 1.5rem; /* Even smaller font size for small screens */
+                }
+        
+                .contact-btn {
+                    font-size: 1.1rem; /* Even smaller button size for small screens */
+                }
+            }
+        </style>
+        
+        <style>
+            .sticky-bottom {
+                position: fixed;
+                bottom: 2em; /* Adjusted for better visibility */
+                right: 2em; /* Adjusted for better visibility */
+                z-index: 1000; /* Ensure it's on top of other content */
+            }
+        
+            .sticky-bottom img {
+                height: 5vw; /* Responsive size */
+                width: 5vw; /* Maintain aspect ratio */
+                max-height: 60px; /* Cap the maximum size */
+                max-width: 60px; /* Cap the maximum size */
+                border-radius: 15px;
+                transition: transform 0.2s; /* Smooth scaling effect */
+            }
+        
+            .sticky-bottom img:hover {
+                transform: scale(1.1); /* Slightly enlarge on hover */
+            }
+        </style>
+        
+        <div class="sticky-bottom">
+            <a href="" id="open-whatsapp">
+                <img src="https://p7.hiclipart.com/preview/28/331/772/whatsapp-logo-whatsapp-thumbnail.jpg" alt="WhatsApp Logo">
+            </a>
+        </div>
+        
+        
+
+        <script>
+            document.getElementById('open-whatsapp').addEventListener('click', function () {
+                const message = encodeURIComponent("Hello, Can I get more info?");
+                const phoneNumber = '918851041909'; // Replace with the correct international phone number
+                const url = `https://wa.me/${phoneNumber}?text=${message}`;
+
+                // Debugging: Log the URL to the console
+                console.log("Opening URL: ", url);
+
+                // Open the WhatsApp URL in a new tab
+                window.open(url, '_blank');
+            });
+        </script>
+        </div>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #f9f9f9;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px;
+            border-radius: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <!-- The Modal -->
+    <div class="modal" id="contactFormModal">
+        <div class="modal-content">
+            <span class="close" id="closeFormBtn">&times;</span>
+            <h3 style="color: #103C63;" class="sec2frmtitle">Want to Know More?? Drop Us a Mail</h3>
+            <form action="/clients">
+                <div class="clearfix">
+                    <input type="text" name="name" placeholder="Your Name*" class="form-control" required>
+                </div>
+                <div class="clearfix">
+                    <input type="text" placeholder="Phone Number*" id="mobileNo" name="mobileNo" class="form-control" required>
+                </div>
+                <div class="clearfix">
+                    <textarea class="form-control" name="message" id="message">Your message here...</textarea>
+                </div>
+                <div class="clearfix">
+                    <input type="text" id="otp" name="otp" class="form-control" placeholder="Enter OTP*" required>
+                </div>
+                <button style="margin-bottom: 2px;" type="button" onclick="sendOtp()">Send OTP</button>
+                <button type="submit">Submit</button>
+            </form>
+            <script>
+                async function sendOtp() {
+                    const mobileNo = document.getElementById('mobileNo').value;
+
+                    if (!mobileNo) {
+                        alert('Please enter a phone number.');
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch('/send-otp', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ mobileNo })
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            alert('OTP sent successfully!');
+                        } else {
+                            alert('Failed to send OTP.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred.');
+                    }
+                }
+
+                // Get the modal
+                const modal = document.getElementById("contactFormModal");
+
+                // Get the button that opens the modal
+                const openFormBtn = document.getElementById("openFormBtn");
+
+                // Get the <span> element that closes the modal
+                const closeFormBtn = document.getElementById("closeFormBtn");
+
+                // When the user clicks the button, open the modal
+                openFormBtn.onclick = function() {
+                    modal.style.display = "block";
+                }
+
+                // When the user clicks on <span> (x), close the modal
+                closeFormBtn.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target === modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+    </div>
+
+</body>
+</html>
+
+        <%- include('parts/footer') %>
+
+</body>
+
+</html>
